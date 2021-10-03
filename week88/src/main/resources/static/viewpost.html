@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>Title</title>
+    <script>
+        $(document).ready(function () {
+            let url = window.location.href;
+            let id = url.split("?id=")[1];
+            console.log(id);
+            $.ajax({
+                    type: 'GET',
+                    url: `/api/postone/${id}`,
+                    success: function (response) {
+                        console.log(response);
+                        let usernick = response["userNick"]
+                        $('#postcontent').empty();
+                        let temphtml = getPOSThtml(response["post"]);
+                        $('#postcontent').append(temphtml);
+
+                        $('#commentlist').empty();
+                        let comments =response["post"]["commentList"];
+                        for (let i =comments.length-1 ; i >= 0;i--)
+                        {
+                            let comhtml = getcommentshtml(comments[i]);
+                            let abcd = comments[i]["id"];
+                            if (comments[i]["userNick"] == usernick)
+                            {
+                                comhtml = comhtml + `<button onclick = "edit(${comments[i]['id']},this)">수정</button> <button onclick = "deletecomment(${comments[i]['id']})">삭제</button>`;
+                            }
+                            comhtml = comhtml + `<br>`;
+                            console.log(comhtml);
+                            $('#commentlist').append(comhtml);
+                        }
+
+                    }
+                }
+            )
+        })
+        function deletecomment(id)
+        {
+            if (confirm("삭제할시겠습니까") == true) {
+                let imsi = window.location.href.split('?id=')[1];
+                $.ajax({
+                        type: 'DELETE',
+                        url: `/api/deletecomment/${id}`,
+                        success: function (response) {
+                            window.location.href = `http://localhost:8080/viewpost.html?id=${imsi}`;
+                        }
+                    }
+                )
+
+            } else {
+
+            }
+
+        }
+        function getPOSThtml(post) {
+            // link, image, title, lprice, myprice 변수 활용하기
+            return `<tr>
+                <th>제목</th>
+                <td colspan="3">
+                    ${post.title}
+                </td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td>${post.name}</td>
+                <th>작성일</th>
+                <td>${post.createdAt}</td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td colspan="3">
+                    <pre><code>${post.content}</code></code></pre>
+                </td>
+            </tr>`
+        }
+        function edit(id,obj)
+        {
+            let text = $('#'+id).val();
+            let data = {'id': id, 'content': text};
+            if(document.getElementById(id).getAttribute("disabled") === null)
+            {
+                if(text === "")
+                {
+                   alert("내용을 입력해주세요.")
+                   return;
+                }
+                $.ajax({
+                    type: "PUT",
+                    url: `/api/editcomment`,
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        obj.innerText = "수정";
+                        $('#'+id).attr("readonly", true);
+                        $('#'+id).attr("disabled", true);
+                    }
+                })
+
+            }
+            else
+            {
+                //수정 시작
+                obj.innerText = "저장";
+                $('#'+id).attr("readonly", false);
+                $('#'+id).attr("disabled", false);
+            }
+        }
+        function getcommentshtml(comment)
+        {
+            return `<textarea name="opinion" cols="100" rows="3" id = "${comment.id}" readonly disabled>${comment.content}</textarea>`
+        }
+        function addComment()
+        {
+            if ($('#content').val() == "")
+            {
+                alert("입력해주세요")
+                return;
+            }
+
+            let imsi = window.location.href.split("?id=")[1];
+            $.ajax({
+                    type: 'POST',
+                    url: `/api/comment`,
+                    data: JSON.stringify({"content":$('#content').val(),"postId":imsi}),
+                    contentType:"application/json",
+                    success: function (response) {
+                        window.location.href = `http://localhost:8080/viewpost.html?id=${imsi}`;
+                    }
+                }
+            )
+        }
+        function checklogin()
+        {
+            console.log("asdasdsad");
+            $.ajax({
+                    type: 'GET',
+                    url: `/checklogin`,
+                    success: function (response) {
+                        console.log(response)
+                        if (response)
+                        {
+                            alert("로그인해주세요")
+                            location.href='/user/login'
+                        }
+                    }
+                }
+            )
+        }
+
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <div style="padding-bottom: 30px;">
+            <h1>글조회</h1>
+        </div>
+        <table class="table table-condensed" id="postcontent">
+        </table>
+        <hr>
+        <div>
+            <label for="content">댓글작성: </label>
+            <textarea rows="3" cols="100" name="content" id="content" onclick = "checklogin()"></textarea>
+            <div name = "postId" id="postId">1</div>
+        </div>
+        <button id="login-id-submit" onclick = "addComment()">작성</button>
+        <hr>
+        <div id = "commentlist">
+            <textarea name="opinion" cols="100" rows="3" >SADSADAS</textarea>
+            <button >수정</button> <button >삭제</button>
+            <br>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>마이 페이보릿 무비스타 | 프론트-백엔드 연결 마지막 예제!</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script>
+        $(document).ready(function () {
+            showPosts();
+        });
+        function viewpost(id) {
+            window.location.href = `http://localhost:8080/viewpost.html?id=${id}`;
+        }
+
+        function showPosts()
+        {
+            $('#post-box').empty();
+            $.ajax({
+                type: 'GET',
+                url: '/api/post',
+                success: function (response) {
+                    for (let i = 0; i < response.length; i++) {
+                        let post = response[i];
+                        let temphtml = gethtml(post);
+                        console.log(temphtml);
+                        $('#post-box').append(temphtml);
+
+                    }
+                }
+            })
+        }
+        function gethtml(post) {
+            // link, image, title, lprice, myprice 변수 활용하기
+            return `<tr>
+                <td>${post.name}</td>
+                <td onclick="viewpost(${post.id})">${post.title}</td>
+                <td>${post.createdAt}</td>
+            </tr>`
+        }
+        function gowritep() {
+            window.location.href = 'http://localhost:8080/write.html';
+        }
+        function testt() {
+            // console.log("abc");
+            // $.ajax({
+            //     type: 'GET',
+            //     url: '/new',
+            //     success: function (response) {
+            //         console.log(response);
+            //     }
+            // })
+        }
+    </script>
+</head>
+<body>
+
+<button type="button" class="btn btn-primary" onclick="location.href='/user/login'">login!!</button>
+<button type="button" class="btn btn-primary" onclick="location.href='/user/logout'">logout!!</button>
+    <hr size = "10px">
+    <div class = "Pstlist" id = "Pst_list">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">글쓴사람</th>
+                <th scope="col">제목</th>
+                <th scope="col">날짜</th>
+            </tr>
+            </thead>
+            <tbody id="post-box">
+            </tbody>
+        </table>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="gowritep()">글작성하러가기</button>
+
+</body>
+<script>
+    const href = location.href;
+    const queryString = href.substring(href.indexOf("?")+1)
+    if (queryString === 'alreadylogin') {
+        alert("이미 로그인이 되어있습니다.")
+    }
+</script>
+</html>
