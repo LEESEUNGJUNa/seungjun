@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,13 +39,15 @@
 
                         $('#commentlist').empty();
                         let comments =response["post"]["commentList"];
+                        console.log(comments);
+
                         for (let i =comments.length-1 ; i >= 0;i--)
                         {
                             let comhtml = getcommentshtml(comments[i]);
                             let abcd = comments[i]["id"];
                             if (comments[i]["userNick"] == usernick)
                             {
-                                comhtml = comhtml + `<button onclick = "edit(${comments[i]['id']},this)">수정</button> <button onclick = "deletecomment(${comments[i]['id']})">삭제</button>`;
+                                comhtml = comhtml + `<br><button onclick = "edit(${comments[i]['id']},this)">수정</button> <button onclick = "deletecomment(${comments[i]['id']})">삭제</button>`;
                             }
                             comhtml = comhtml + `<br>`;
                             console.log(comhtml);
@@ -63,7 +66,7 @@
                         type: 'DELETE',
                         url: `/api/deletecomment/${id}`,
                         success: function (response) {
-                            window.location.href = `http://localhost:8080/viewpost.html?id=${imsi}`;
+                            window.location.href = `http://52.79.248.107:8080/viewpost.html?id=${imsi}`;
                         }
                     }
                 )
@@ -145,7 +148,37 @@
                     data: JSON.stringify({"content":$('#content').val(),"postId":imsi}),
                     contentType:"application/json",
                     success: function (response) {
-                        window.location.href = `http://localhost:8080/viewpost.html?id=${imsi}`;
+                        window.location.href = `http://52.79.248.107:8080/viewpost.html?id=${imsi}`;
+                    }
+                }
+            )
+        }
+
+        //<button id="like" onClick="like()">좋아용</button>
+        function like()
+        {
+            console.log("asdsadsada");
+            let imsi = window.location.href.split("?id=")[1];
+            $.ajax({
+                    type: 'POST',
+                    url: `/user/like/${imsi}`,
+                    success: function (response) {
+                        if(response == false)
+                            alert("이미 좋아요 돼있음..")
+                    }
+                }
+            )
+        }
+        function unlike()
+        {
+            console.log("asdsadsada");
+            let imsi = window.location.href.split("?id=")[1];
+            $.ajax({
+                    type: 'POST',
+                    url: `/user/unlike/${imsi}`,
+                    success: function (response) {
+                        if(response == false)
+                            alert("좋아요 안돼있음")
                     }
                 }
             )
@@ -180,6 +213,8 @@
         <table class="table table-condensed" id="postcontent">
         </table>
         <hr>
+        <button id = "like" onclick="like()">좋아용</button>
+        <button id = "likee" onclick="unlike()">좋아용취소</button>
         <div>
             <label for="content">댓글작성: </label>
             <textarea rows="3" cols="100" name="content" id="content" onclick = "checklogin()"></textarea>

@@ -7,15 +7,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script>
         $(document).ready(function () {
             showPosts();
         });
         function viewpost(id) {
-            window.location.href = `http://localhost:8080/viewpost.html?id=${id}`;
+            window.location.href = `http://52.79.248.107:8080/viewpost.html?id=${id}`;
         }
 
         function showPosts()
@@ -25,6 +28,7 @@
                 type: 'GET',
                 url: '/api/post',
                 success: function (response) {
+                    console.log(response)
                     for (let i = 0; i < response.length; i++) {
                         let post = response[i];
                         let temphtml = gethtml(post);
@@ -37,14 +41,16 @@
         }
         function gethtml(post) {
             // link, image, title, lprice, myprice 변수 활용하기
+            let like = post['userList'].length
             return `<tr>
                 <td>${post.name}</td>
                 <td onclick="viewpost(${post.id})">${post.title}</td>
                 <td>${post.createdAt}</td>
+                <td><i class="fa fa-heart lsj" ></i>${like}</td>
             </tr>`
         }
         function gowritep() {
-            window.location.href = 'http://localhost:8080/write.html';
+            window.location.href = 'http://52.79.248.107:8080/write.html';
         }
         function testt() {
             // console.log("abc");
@@ -57,6 +63,11 @@
             // })
         }
     </script>
+    <style type="text/css">
+        .lsj {
+            color: #e8344e !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -70,6 +81,7 @@
                 <th scope="col">글쓴사람</th>
                 <th scope="col">제목</th>
                 <th scope="col">날짜</th>
+                <th scope="col">좋아용</th>
             </tr>
             </thead>
             <tbody id="post-box">
@@ -77,6 +89,8 @@
         </table>
     </div>
     <button type="button" class="btn btn-primary" onclick="gowritep()">글작성하러가기</button>
+<!--    <i class="fa fa-heart" ></i>-->
+<!--    <i class="fa fa-heart-o" ></i>-->
 
 </body>
 <script>

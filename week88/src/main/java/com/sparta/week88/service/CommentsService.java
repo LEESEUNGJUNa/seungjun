@@ -18,12 +18,14 @@ public class CommentsService {
     {
         Comments comment = new Comments(requestDto);
         comment.setUserNick(userDetails.getUser().getNickName());
+
         Posts post= postsRepository.findById(requestDto.getPostId())
                 .orElse(null);
 
         if (post!=null)
         {
-            post.addComment(commentsRepository.save(comment));
+            commentsRepository.save(comment);
+            post.addComment(comment);
             postsRepository.save(post);
         }
 
