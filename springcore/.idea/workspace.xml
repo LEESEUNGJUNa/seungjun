@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d06c4ad-c452-455a-b37e-5e018df3a71e" name="Changes" comment="" />
+    <list default="true" id="7d06c4ad-c452-455a-b37e-5e018df3a71e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/java/com/sparta/week88/models/Comments.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/java/com/sparta/week88/models/Comments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/java/com/sparta/week88/service/CommentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/java/com/sparta/week88/service/CommentsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/java/com/sparta/week88/service/KakaoUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/java/com/sparta/week88/service/KakaoUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/resources/static/viewpost.html" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/resources/static/viewpost.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/resources/static/write.html" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/resources/static/write.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week88/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../week88/src/main/resources/templates/login.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,9 +29,10 @@
     </projectState>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1z1hHjvFmkR9FbClVRtrmaYFHhT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -27,7 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/spring" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../springmvc" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -38,7 +52,12 @@
       <option name="presentableId" value="Default" />
       <updated>1633321416381</updated>
       <workItem from="1633321418329" duration="38000" />
+      <workItem from="1633951675948" duration="39000" />
+      <workItem from="1634694910080" duration="22000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

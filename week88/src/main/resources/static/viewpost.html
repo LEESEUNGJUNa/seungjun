@@ -66,7 +66,7 @@
                         type: 'DELETE',
                         url: `/api/deletecomment/${id}`,
                         success: function (response) {
-                            window.location.href = `http://52.79.248.107:8080/viewpost.html?id=${imsi}`;
+                            window.location.href = `http://localhost:8080/viewpost.html?id=${imsi}`;
                         }
                     }
                 )
@@ -148,7 +148,7 @@
                     data: JSON.stringify({"content":$('#content').val(),"postId":imsi}),
                     contentType:"application/json",
                     success: function (response) {
-                        window.location.href = `http://52.79.248.107:8080/viewpost.html?id=${imsi}`;
+                        window.location.href = `http://localhost:8080/viewpost.html?id=${imsi}`;
                     }
                 }
             )

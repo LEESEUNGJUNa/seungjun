@@ -31,7 +31,6 @@ public class Posts extends Timestamped{
 
     @ManyToMany
     private List<User> userList;
-    //사실상 좋아요한 회원.. 이렇게하면 안될것같긴한데 시간없으니..
 
     public Posts(PostsRequestDto requestDto) {
         this.title = requestDto.getTitle();

@@ -18,21 +18,21 @@ public class Comments extends Timestamped{
     @Column(nullable = false)
     private String userNick;
 
-    @Column(nullable = false)
-    private Long postId;
+//    @Column(nullable = false)
+//    private Long postId;
 
     @Column(nullable = false)
     private String content;
-    public Comments(String usernick,Long postid, String content)
+    public Comments(String usernick, String content)
     {
         this.userNick = usernick;
-        this.postId = postid;
+//        this.postId = postid;
         this.content = content;
     }
 
     public Comments(CommentsRequestDto dto)
     {
-        this.postId = dto.getPostId();
+//        this.postId = dto.getPostId();
         this.content = dto.getContent();
     }
 }

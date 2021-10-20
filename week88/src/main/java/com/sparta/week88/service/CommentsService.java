@@ -36,7 +36,7 @@ public class CommentsService {
     public void deletecomment(Long id) {
         Comments com = commentsRepository.findById(id)
                 .orElse(null);
-        Posts post = postsRepository.findById(com.getPostId())
+        Posts post = postsRepository.findById(1L)
                 .orElse(null);
         List<Comments> comList = post.getCommentList();
         comList.remove(com);
@@ -44,8 +44,6 @@ public class CommentsService {
         {
             commentsRepository.delete(com);
         }
-        Comments newcom = commentsRepository.findById(id)
-                .orElse(null);
     }
 
     public void UpdateComment(CommentsDto requestDto) {
